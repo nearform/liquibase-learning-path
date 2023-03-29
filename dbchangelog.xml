@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-    <changeSet author="nearform" id="1679599703403-1">
+    <changeSet author="stevenherzog (generated)" id="1680112175550-1">
         <createTable tableName="project">
             <column defaultValueComputed="gen_random_uuid()" name="id" type="UUID">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="project_pkey"/>
@@ -20,7 +20,7 @@
             <column name="updated_by" type="TEXT"/>
         </createTable>
     </changeSet>
-    <changeSet author="nearform" id="1679599703403-2">
+    <changeSet author="stevenherzog (generated)" id="1680112175550-2">
         <createTable tableName="project_technology_rating">
             <column name="project_id" type="UUID">
                 <constraints nullable="false"/>
@@ -39,7 +39,7 @@
             <column name="updated_by" type="TEXT"/>
         </createTable>
     </changeSet>
-    <changeSet author="nearform" id="1679599703403-3">
+    <changeSet author="stevenherzog (generated)" id="1680112175550-3">
         <createTable tableName="technology">
             <column defaultValueComputed="gen_random_uuid()" name="id" type="UUID">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="technology_pkey"/>
@@ -55,28 +55,23 @@
             </column>
             <column name="created_by" type="TEXT"/>
             <column name="updated_by" type="TEXT"/>
-            <column defaultValueComputed="[]" name="tags" type="JSONB">
+            <column defaultValueComputed="'[]'" name="tags" type="JSONB">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="nearform" id="1679599703403-4">
+    <changeSet author="stevenherzog (generated)" id="1680112175550-4">
         <addUniqueConstraint columnNames="id" constraintName="project_technology_rating_id_key" tableName="project_technology_rating"/>
     </changeSet>
-    <changeSet author="nearform" id="1679599703403-5">
+    <changeSet author="stevenherzog (generated)" id="1680112175550-5">
         <createView fullDefinition="false" viewName="technology_tags">SELECT jsonb_agg(DISTINCT t.value) AS tags
    FROM technology,
     LATERAL jsonb_array_elements(technology.tags) t(value);</createView>
     </changeSet>
-    <changeSet author="nearform" id="1679599703403-6">
+    <changeSet author="stevenherzog (generated)" id="1680112175550-6">
         <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="project_technology_rating" constraintName="project_technology_rating_project_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="project" validate="true"/>
     </changeSet>
-    <changeSet author="nearform" id="1679599703403-7">
+    <changeSet author="stevenherzog (generated)" id="1680112175550-7">
         <addForeignKeyConstraint baseColumnNames="technology_id" baseTableName="project_technology_rating" constraintName="project_technology_rating_technology_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="technology" validate="true"/>
-    </changeSet>
-    <changeSet author="nearform" id="manual_update_1">
-        <addColumn tableName="technology">
-            <column name="homepage" type="TEXT"/>
-        </addColumn>
     </changeSet>
 </databaseChangeLog>
